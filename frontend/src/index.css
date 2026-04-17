@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 150 30% 8%;
+    --foreground: 40 30% 90%;
+
+    --card: 150 25% 12%;
+    --card-foreground: 40 30% 90%;
+
+    --popover: 150 25% 12%;
+    --popover-foreground: 40 30% 90%;
+
+    --primary: 0 20% 62%;
+    --primary-foreground: 150 30% 8%;
+
+    --secondary: 42 40% 55%;
+    --secondary-foreground: 150 30% 8%;
+
+    --muted: 150 20% 16%;
+    --muted-foreground: 40 15% 60%;
+
+    --accent: 42 40% 55%;
+    --accent-foreground: 150 30% 8%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 140 60% 40%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 150 15% 20%;
+    --input: 150 15% 20%;
+    --ring: 0 20% 62%;
+
+    --radius: 0.75rem;
+
+    --font-display: 'Cinzel', serif;
+    --font-body: 'Inter', sans-serif;
+    --font-accent: 'Crimson Text', serif;
+
+    --gradient-hero: linear-gradient(180deg, hsl(150 30% 6%) 0%, hsl(150 25% 12%) 50%, hsl(150 30% 8%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(150 25% 14%) 0%, hsl(150 20% 10%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(42 50% 50%) 0%, hsl(35 60% 40%) 100%);
+    --glow-rose: 0 0 60px hsl(0 20% 62% / 0.15);
+    --glow-gold: 0 0 40px hsl(42 40% 55% / 0.2);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .font-accent {
+    font-family: var(--font-accent);
+  }
+  .text-gradient-gold {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .bg-gradient-hero {
+    background: var(--gradient-hero);
+  }
+  .bg-gradient-card {
+    background: var(--gradient-card);
+  }
+  .glow-rose {
+    box-shadow: var(--glow-rose);
+  }
+  .glow-gold {
+    box-shadow: var(--glow-gold);
+  }
+}
