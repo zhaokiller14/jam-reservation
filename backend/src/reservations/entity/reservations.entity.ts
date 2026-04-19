@@ -1,30 +1,39 @@
+import { randomUUID } from 'crypto';
 import {
   Entity,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   Column,
   CreateDateColumn,
+  BeforeInsert,
 } from 'typeorm';
 
 @Entity('reservations')
 export class Reservation {
-  @PrimaryGeneratedColumn('uuid')
-    id!: string;
+  @PrimaryColumn('uuid')
+  id!: string;
+
+  @BeforeInsert()
+  ensureId() {
+    if (!this.id) {
+      this.id = randomUUID();
+    }
+  }
 
   @Column({ name: 'full_name' })
-    fullName!: string;
+  fullName!: string;
 
   @Column({ unique: true })
-    email!: string;
+  email!: string;
 
   @Column()
-    university!: string;
+  university!: string;
 
   @Column({ name: 'checked_in', default: false })
-    checkedIn!: boolean;
+  checkedIn!: boolean;
 
   @Column({ name: 'checked_in_at', nullable: true, type: 'timestamptz' })
-    checkedInAt!: Date | null;
+  checkedInAt!: Date | null;
 
   @CreateDateColumn({ name: 'created_at' })
-    createdAt!: Date;
+  createdAt!: Date;
 }

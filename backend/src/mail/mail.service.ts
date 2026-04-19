@@ -57,6 +57,7 @@ export class MailService implements OnModuleInit {
     // Convert data URL to buffer for embedding as inline image
     const base64Data = qrCodeDataUrl.replace(/^data:image\/png;base64,/, '');
     const qrBuffer = Buffer.from(base64Data, 'base64');
+    const qrCid = `qrcode-${reservation.id}@jamxv.local`;
 
     const html = `
       <!DOCTYPE html>
@@ -95,7 +96,7 @@ export class MailService implements OnModuleInit {
                   <tr>
                     <td align="center" style="padding:32px 40px;">
                       <div style="background:#ffffff;border-radius:12px;padding:16px;display:inline-block;">
-                        <img src="cid:qrcode" width="220" height="220" alt="Your QR Code" style="display:block;" />
+                        <img src="cid:${qrCid}" width="220" height="220" alt="Your QR Code" style="display:block;" />
                       </div>
                       <p style="margin:12px 0 0;font-size:11px;color:#555;letter-spacing:2px;text-transform:uppercase;">
                         Reservation ID: ${reservation.id.slice(0, 8).toUpperCase()}
@@ -156,7 +157,9 @@ export class MailService implements OnModuleInit {
         {
           filename: 'qrcode.png',
           content: qrBuffer,
-          cid: 'qrcode', // referenced in img src="cid:qrcode"
+          contentType: 'image/png',
+          contentDisposition: 'inline',
+          cid: qrCid, // referenced in img src="cid:..."
         },
       ],
     });

@@ -5,8 +5,17 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  const parsedPort = Number.parseInt(process.env.PORT ?? '3000', 10);
+  const port = Number.isFinite(parsedPort) && parsedPort > 0 ? parsedPort : 3000;
+  const frontendUrlRaw = process.env.FRONTEND_URL?.trim();
+  const frontendUrl = frontendUrlRaw
+    ? (/^https?:\/\//i.test(frontendUrlRaw)
+        ? frontendUrlRaw
+        : `https://${frontendUrlRaw}`)
+    : undefined;
+
   app.enableCors({
-    origin: process.env.FRONTEND_URL || '*',
+    origin: frontendUrl || '*',
     methods: ['GET', 'POST'],
   });
 
@@ -20,7 +29,7 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
 
-  await app.listen(process.env.PORT || 3000);
-  console.log(`Backend running on port ${process.env.PORT || 3000}`);
+  await app.listen(port, '0.0.0.0');
+  console.log(`Backend running on port ${port}`);
 }
 bootstrap();
